@@ -5,28 +5,37 @@ var tweetKeys = require('./keys.js')
 var operator = process.argv[2];
 var fs = require('fs');
 
- 	var client = new twitter(tweetKeys.twitterKeys );
+var client = new twitter(tweetKeys.twitterKeys);
 switch (operator) {
     case 'my-tweets':
 
         var twitterFeed = process.argv[3]
-      
-        var params = { screen_name: 'daniel_arnost' };
+
+        var params = { screen_name: 'daniel_arnost', count: 20 };
+
         client.get('statuses/user_timeline', params, function(error, tweets, response) {
+
+            // for (var i = 0; i < 20; i ++){
+
+            // }
             if (!error) {
-            	 // var textTweets = JSON.parse(body);
+                // var textTweets = JSON.parse(body);
                 // console.log(texttweets);
-                console.log(tweets) + JSON.parse.body(text)
+                for (var i = 0; i < tweets.length; i++) {
+                    console.log(tweets[i].text);
+                    console.log(tweets[i].created_at);
+
+                }
             } else {
-            	console.log(error);
+                console.log(error);
             }
         });
+
 
         break;
     case 'spotify-this-song':
         var song = process.argv[3]
         var defaultTrack = "Ace of Base - The Sign"
-
         spotify.search({ type: 'track', query: song }, function(err, data) {
             if (err) {
                 console.log('Error occurred: ' + err);
@@ -37,13 +46,10 @@ switch (operator) {
                 console.log("Preview link: " + data.tracks.items[0].preview_url);
                 console.log("Album: " + data.tracks.items[0].album.name);
             }
-
         });
         break;
-
-
-
-    case 'movie-this':
+    	
+    	case 'movie-this':
 
         var movieName = process.argv[3]
 
@@ -61,7 +67,34 @@ switch (operator) {
 
                 console.log("Movie Title: " + movie["Title"] + "\nRelease Year: " + movie["Year"] + "\nImdb Rating: " + movie["imdbRating"] + "\nCountry: " + movie["Country"] + "\nLanguage: " + movie["Language"] + "\nPlot: " + movie["Plot"] + "\nActors: " + movie["Actors"] + "\ntomatoRating: " + movie["tomatoRating"] + "\ntomatoURL: " + movie["tomatoURL"]);
             }
-        })
+        });
 
         break;
-}
+
+	    // case 'do-what-it-says':
+	    //     function playSong() {
+	    //         fs.readFile("./random.txt", "utf8", function read(error, response){
+	                    
+
+	    //                 var doIt = data.split(", ");
+	    //                 spotify.search({ type: 'track', query: song }, function(err, data) {
+	    //                 	if (err) {
+     //            		console.log('Error occurred: ' + err);
+     //           	 		return;
+     //        			} else {
+
+	    //                 	console.log("Artist: " + data.tracks.items[0].artists[0].name); 
+	    //                 	console.log("Track: " + data.tracks.items[0].name); 
+	    //                 	console.log("Preview link: " + data.tracks.items[0].preview_url); 
+	    //                 	console.log("Album: " + data.tracks.items[0].album.name);
+	    //                 }
+	    //         });	
+	    //         });
+	    //         }    
+	    
+	
+	    //         break;
+	        };
+		
+
+       
